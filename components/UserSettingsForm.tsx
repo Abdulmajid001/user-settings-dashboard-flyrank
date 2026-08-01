@@ -18,7 +18,6 @@ export function UserSettingsForm() {
   const [globalError, setGlobalError] = React.useState<string | null>(null)
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
@@ -71,13 +70,19 @@ export function UserSettingsForm() {
         {/* Full Name */}
         <div className="space-y-2">
           <Label htmlFor="fullName">Full Name</Label>
-          <Input
-            id="fullName"
-            placeholder="John Doe"
-            autoComplete="name"
-            aria-invalid={!!errors.fullName}
-            aria-describedby={errors.fullName ? "fullName-error" : undefined}
-            {...register("fullName")}
+          <Controller
+            control={control}
+            name="fullName"
+            render={({ field }) => (
+              <Input
+                id="fullName"
+                placeholder="John Doe"
+                autoComplete="name"
+                aria-invalid={!!errors.fullName}
+                aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                {...field}
+              />
+            )}
           />
           {errors.fullName && (
             <p id="fullName-error" className="text-sm text-red-500 font-medium">
@@ -89,14 +94,20 @@ export function UserSettingsForm() {
         {/* Email */}
         <div className="space-y-2">
           <Label htmlFor="email">Email Address</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="john@example.com"
-            autoComplete="email"
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "email-error" : undefined}
-            {...register("email")}
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <Input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                autoComplete="email"
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? "email-error" : undefined}
+                {...field}
+              />
+            )}
           />
           {errors.email && (
             <p id="email-error" className="text-sm text-red-500 font-medium">
@@ -108,16 +119,22 @@ export function UserSettingsForm() {
         {/* Preferred AI Model */}
         <div className="space-y-2">
           <Label htmlFor="aiModel">Preferred AI Model</Label>
-          <Select
-            id="aiModel"
-            aria-invalid={!!errors.aiModel}
-            aria-describedby={errors.aiModel ? "aiModel-error" : undefined}
-            {...register("aiModel")}
-          >
-            <option value="GPT-5.5">GPT-5.5</option>
-            <option value="Claude">Claude</option>
-            <option value="Gemini">Gemini</option>
-          </Select>
+          <Controller
+            control={control}
+            name="aiModel"
+            render={({ field }) => (
+              <Select
+                id="aiModel"
+                aria-invalid={!!errors.aiModel}
+                aria-describedby={errors.aiModel ? "aiModel-error" : undefined}
+                {...field}
+              >
+                <option value="GPT-5.5">GPT-5.5</option>
+                <option value="Claude">Claude</option>
+                <option value="Gemini">Gemini</option>
+              </Select>
+            )}
+          />
           {errors.aiModel && (
             <p id="aiModel-error" className="text-sm text-red-500 font-medium">
               {errors.aiModel.message}
@@ -128,16 +145,22 @@ export function UserSettingsForm() {
         {/* Theme */}
         <div className="space-y-2">
           <Label htmlFor="theme">Theme</Label>
-          <Select
-            id="theme"
-            aria-invalid={!!errors.theme}
-            aria-describedby={errors.theme ? "theme-error" : undefined}
-            {...register("theme")}
-          >
-            <option value="System">System</option>
-            <option value="Light">Light</option>
-            <option value="Dark">Dark</option>
-          </Select>
+          <Controller
+            control={control}
+            name="theme"
+            render={({ field }) => (
+              <Select
+                id="theme"
+                aria-invalid={!!errors.theme}
+                aria-describedby={errors.theme ? "theme-error" : undefined}
+                {...field}
+              >
+                <option value="System">System</option>
+                <option value="Light">Light</option>
+                <option value="Dark">Dark</option>
+              </Select>
+            )}
+          />
           {errors.theme && (
             <p id="theme-error" className="text-sm text-red-500 font-medium">
               {errors.theme.message}
@@ -151,12 +174,18 @@ export function UserSettingsForm() {
             <Label htmlFor="bio">Bio</Label>
             <span className="text-xs text-slate-500">Max 200 characters</span>
           </div>
-          <Textarea
-            id="bio"
-            placeholder="Tell us a little bit about yourself"
-            aria-invalid={!!errors.bio}
-            aria-describedby={errors.bio ? "bio-error" : undefined}
-            {...register("bio")}
+          <Controller
+            control={control}
+            name="bio"
+            render={({ field }) => (
+              <Textarea
+                id="bio"
+                placeholder="Tell us a little bit about yourself"
+                aria-invalid={!!errors.bio}
+                aria-describedby={errors.bio ? "bio-error" : undefined}
+                {...field}
+              />
+            )}
           />
           {errors.bio && (
             <p id="bio-error" className="text-sm text-red-500 font-medium">
